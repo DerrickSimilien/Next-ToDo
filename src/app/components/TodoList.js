@@ -3,11 +3,11 @@ export default function TodoList () {
       <>
       <div>
         <h1>Todos</h1>
-        <ul>
-            <li>Todo 1</li>
-            <li>Todo 2</li>
-            <li>Todo 3</li>
-            <li>Todo 4</li>
+        <ul className="todoList">
+            <li className="listItem" >Todo 1</li>
+            <li className="listItem" >Todo 2</li>
+            <li className="listItem" >Todo 3</li>
+            <li className="listItem" >Todo 4</li>
         </ul>
       </div>
       </>
