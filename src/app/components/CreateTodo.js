@@ -1,6 +1,8 @@
 'use client';
 
 import { useState } from "react";
+import { db } from "../../../firebase";
+import { addDoc, collection } from "firebase/firestore";
 
 export default function CreateTodo() {
   const [todo, setTodo] = useState({
@@ -15,6 +17,10 @@ export default function CreateTodo() {
 //       [name]: value,
 //     }));
 //   };
+
+async function handleSubmit() {
+    const docRef = await addDoc(collection(db, "todos"), todo) 
+}
 
   return (
     <>
@@ -33,8 +39,8 @@ export default function CreateTodo() {
           onChange={(e) => setTodo({...todo, detail: e.target.value})}
           value={todo.detail}
         ></textarea>
+         <button onClick={handleSubmit} >Add Todo</button>
       </form>
-      <button>Add Todo</button>
       <p>{JSON.stringify(todo)}</p>
     </>
   );
