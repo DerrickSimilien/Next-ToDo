@@ -10,36 +10,41 @@ export default function CreateTodo() {
     detail: "",
   });
 
-//   const handleChange = (e) => {
-//     const { name, value } = e.target;
-//     setTodo((prev) => ({
-//       ...prev,
-//       [name]: value,
-//     }));
-//   };
+  async function handleSubmit(e) {
+    e.preventDefault(); // ✅ Prevent page reload
 
-async function handleSubmit() {
-    const docRef = await addDoc(collection(db, "todos"), todo) 
-}
+    if (!todo.title.trim()) {
+      alert("Title is required!");
+      return;
+    }
+
+    try {
+      const docRef = await addDoc(collection(db, "todos"), todo);
+      console.log("Document written with ID:", docRef.id);
+      setTodo({ title: "", detail: "" }); // Clear form
+    } catch (error) {
+      console.error("Error adding document:", error);
+    }
+  }
 
   return (
     <>
-      <form>
+      <form onSubmit={handleSubmit}>
         <label>Title:</label>
         <br />
         <input
           type="text"
           value={todo.title}
-          onChange={(e) => setTodo({...todo, title: e.target.value})}
-        ></input>
+          onChange={(e) => setTodo({ ...todo, title: e.target.value })}
+        />
         <br />
         <label>Detail:</label>
         <br />
         <textarea
-          onChange={(e) => setTodo({...todo, detail: e.target.value})}
+          onChange={(e) => setTodo({ ...todo, detail: e.target.value })}
           value={todo.detail}
         ></textarea>
-         <button onClick={handleSubmit} >Add Todo</button>
+        <button type="submit">Add Todo</button>
       </form>
       <p>{JSON.stringify(todo)}</p>
     </>
